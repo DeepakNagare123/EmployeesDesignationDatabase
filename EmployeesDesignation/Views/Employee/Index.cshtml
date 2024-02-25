@@ -1,0 +1,136 @@
+﻿@model IEnumerable<EmployeesDesignation.Models.EmployeeData>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List of Employees</h1>
+
+<p>
+    <div class="text-center">
+    <a asp-action="Create">New Employee</a>
+    </div>
+</p>
+<style>
+    
+    .employee-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px; 
+
+        
+        .employee-table th {
+            background-color: #007bff; 
+            color: #ffffff;
+            padding: 10px;
+            text-align: left;
+        }
+
+       
+        .employee-table tr {
+            border-bottom: 1px solid #dddddd; 
+        }
+
+           
+            .employee-table tr:nth-child(even) {
+                background-color: #f2f2f2; 
+            }
+
+        
+        .employee-table td {
+            padding: 8px;
+        }
+</style>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                
+                @Html.DisplayNameFor(model => model.Name)
+                
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Designation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOJ)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+@foreach (var item in Model) 
+{
+
+        <tr>
+            <td>
+                    <a href="@Url.Action("Edit", "Employee",new {id = item.Id})">
+                @Html.DisplayFor(modelItem => item.Name)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Designation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOJ)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                
+                 
+             <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div id="total-salary">Total Salary: <span id="total"></span></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Edit employee name on click
+        $('.edit-name-cell').on('click', function () {
+            var id = $(this).data('id');
+            window.location.href = '@Url.Action("Edit", "Employee")' + '?id=' + id;
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Function to calculate total salary
+        function calculateTotalSalary() {
+            var total = 0;
+            $('tbody tr').each(function () {
+                var salary = parseFloat($(this).find('td:eq(3)').text()); // Assuming salary is in the 4th column (index 3)
+                if (!isNaN(salary)) {
+                    total += salary;
+                }
+            });
+            $('#total').text(total.toFixed(2));
+        }
+
+        // Calculate total salary when the page loads
+        calculateTotalSalary();
+    });
+</script>
