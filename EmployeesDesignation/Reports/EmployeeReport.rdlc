@@ -1,0 +1,7 @@
+﻿namespace EmployeesDesignation.Reports
+{
+    public class EmployeeReport
+    {
+        
+    }
+}

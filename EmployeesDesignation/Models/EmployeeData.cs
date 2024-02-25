@@ -8,6 +8,9 @@ namespace EmployeesDesignation.Models
         [Required]
         public int Id { get; set; }
         [Required]
+        
+        public int DesignationId {  get; set; }
+
         public string? Name { get; set; }
         [Required]
 
@@ -21,5 +24,10 @@ namespace EmployeesDesignation.Models
         public string? Gender {  get; set; }
         [Required]
         public string? State { get; set; }
+    }
+    public class Designation
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
     }
 }
